@@ -1,0 +1,42 @@
+To make an an app with changes detected and automatically compiled with babel..
+
+-- requirement..
+    1. run babel compile command of watch
+        i.e 
+            "start" : "babel app.js --watch --out-dir prd"
+            "dev"   : "nodemon prd/app.js"
+    2. 
+        now run 
+            - npm run start
+            - npm run dev 
+                    both should be in running state..
+
+Initially :
+
+    "scripts": {
+        "build" : "babel app.js --out-dir prd",
+        "dev" : "npm run build && nodemon prd/app.js",
+        "start" : "node prd/app.js"
+    },
+
+run :
+    bash1 :
+        npm run dev
+
+
+Real Time Development :- 
+
+Make changes :
+
+    "scripts": {
+        "build" : "babel app.js --watch --out-dir prd",
+        "dev" : "nodemon prd/app.js",
+        "start" : "node prd/app.js"
+    },
+
+run :
+    bash1 : 
+        npm run build
+    
+    bash2 :
+        npm run dev

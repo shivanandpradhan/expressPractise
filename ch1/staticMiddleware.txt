@@ -1,0 +1,25 @@
+9. ch9_static
+
+    css, js, image, video etc files are considered as static files in express js.
+    To serve these, use express.static middleware function in express
+
+    syntax :
+        
+        express.static(root, [options])
+    
+    Example :
+
+        app.use(express.static('public'))
+        http.//localhost:3000/css/styles
+    
+    To create a virtual path prefix (where path doesnot actually exist in the file system).
+
+        app.use("/static", express.static("public"))
+        http.localhost:3000/static/css/style.css
+    
+    The path that we provide to the express.static() is realative to the directory from where 
+    you launch your node process.
+    If you run the app from another directory, then it is better to use the absolute path of the 
+    directory that you want to serve.
+
+        app.use('/static', express.static(join(process.cwd(), 'public')))

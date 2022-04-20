@@ -1,0 +1,54 @@
+3. ch3_babel
+
+    - Babel 
+        It is a Transpiler which converts the ecmascript feature of js into compatible old
+        javascript code.
+    
+    - Set Up for project.
+        - install @babel/core, @babel/cli, @babel/preset-env
+            npm install -D @babel/core @babel/cli @babel/preset-env
+        
+        - @babel/core - main package to run any babel setup or configuration.
+        - @ babel/cli - bable comes with a built in cli which can be use to compile files
+                        from the command line. (compile the file.)
+        - @babel/preset-env :- this enable us to use new and upcoming features which node js
+                             is yet to understand.
+
+    - compile files 
+
+        npx babel index.js
+            - compiles index.js file
+
+        npx babel index.js --out-file index.compiled.js 
+            - compiles index.js and save o/p to index-compiled.js.
+            - can use -o instead of --out-file
+        
+        npx babel index.js --watch --out-file index-compiled.js
+            -compiles index.js every time we make changes and o/p to index-compiled.js
+
+    - compile directory
+
+        npx babel src --out-dir prd 
+            -compiles whole dir src and o/p to prd
+            - can use -d inplace of --out-dir
+        
+        npx babel src --out-file index-compiled.js
+            - compiles whole src directory and o/p in a single file index-compiled.js
+
+    - after installation :
+        
+        - create a file called .babelrc at the root directory of Project and write
+            { 
+                "presets" : ["@babel/preset-env"]
+            }
+        
+        - open package.json file
+
+            "script" : {
+                "build" : "babel index.js --out-file prd",
+                "start" : "npm run build && nodemon prd/index.js",
+                "serve" : "node prd/index.js"
+            }
+
+            for directory :
+                "build" : "babel src --out-dir prd",

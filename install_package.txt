@@ -1,0 +1,9 @@
+npm i express@5.0.0-alpha.8
+npm i -D nodemon
+npm i ejs
+npm i mongoose
+npm i cookie-parser
+npm i dotenv
+npm i express-session 
+npm i connect-mongo
+

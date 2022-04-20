@@ -1,0 +1,77 @@
+12.ch11_middleware
+
+    middleware :
+        These are functions that have access to the request object, 
+            response object and next() in the application's req-res cycle.
+    
+        next is a function in the Express router which, when invoked, executes teh middleware
+         succedding the current middleware.
+        
+        . can execute any code.
+
+        . can make changes to the request and response object.
+
+        . can end the request-response cycle.
+
+        . call the next middleware in the stack.
+    
+
+    Application level middle ware
+    -------------------------------
+
+    creating middleware
+
+        app.use(function(req,res, next) {
+            console.log("logged')
+            next()
+        })
+
+        -- efficient way ..
+        in middleware/logger-middleware.js
+
+        var myLogger = function(req, res, next) {
+            console.log("logged")
+            next()
+        }
+
+        in app.js
+
+            import --- mylogger first
+
+            app.use(myLogger)
+        
+    A middleware with no mount path, executed every time the app receives a request.
+    above is an example of no mounted path.
+
+    A middleware funcitn mounted on the path, executed for any of http request on that path.
+
+    eg. 
+
+        app.use('/about', (req, res, next) => {
+            console.log('logged');
+            next()
+        })
+
+        - this middleware will execure for any type of http request on /about path.
+    
+    multiple callback
+
+        app.use('/about', (req, res,next) => {
+            console.log('logged')
+            next()
+        }, (req, res, next) => {
+            console.log('logged 2')
+            next()
+        })
+    
+    Router level middleware
+    ------------------------
+
+    It works in the same way as application-level middleware, except it is bound to 
+    an instance of express.Router()
+
+        router.use((req, res, next) => {
+            console.log('logged')
+            next()
+        })
+    

@@ -1,0 +1,38 @@
+7. Controllers
+
+    This is used for grouping and handling similar kinds of requests logics.
+
+    Instead of defining all of your request handling logic as callback in route or route files,
+    you may wish to organize this behavior using controller modules.
+
+    Example :
+
+        Instead of using
+
+            - app.get('/student/all', (req, res) => {
+                res.send('All Student')
+            })
+        
+        or in routes/student.js
+
+            - router.get('/all', (req, res) => {
+                res.send('All Student')
+            })
+        
+        Use :- 
+
+            create a separate directory :- Controllers
+
+            - in homeController.js
+
+                const homeController = (req, res) => {
+                    res.send("All student");
+                }    
+
+                export {homeController};    
+            
+            - in app or routes/student.js (use it inplace of callback)
+
+                app.get("/student/all", homeController)
+
+                router.get("/all", homeController)

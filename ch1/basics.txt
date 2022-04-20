@@ -1,0 +1,20 @@
+2. ch2 
+
+    - contains basic introduction
+        - use of express()
+            It is a top-level function exported by the express module.
+            const app = express()
+                app returned by the function is in fact a js function, designed to be passed 
+                to Node's http servers as a callback to handle request.
+
+        - defining port and host
+            const port = process.env.PORT || "3000"
+            const host = "localhost"
+        
+        - listening on server : listen()
+            it binds and listens for connections on the specified host and port.
+
+            If port is ommitted or is 0, then the os will assign an arbitrary unused port 
+            which is useful for cases like automated tasks.
+            
+        - get method

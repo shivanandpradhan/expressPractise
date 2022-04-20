@@ -1,0 +1,21 @@
+*{
+    margin: 1.5rem;
+    padding: 1rem;
+}
+
+.container, h1, p{
+    border: 2px solid black;
+}
+
+.container{
+    background: greenyellow;
+}
+
+h1{
+    background: black;
+    color: whitesmoke;
+    box-shadow: 7px 6px 3px grey;
+}
+p{
+    background: white;
+}

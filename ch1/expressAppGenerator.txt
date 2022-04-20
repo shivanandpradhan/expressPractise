@@ -1,0 +1,30 @@
+4. ch4_exp_app_generator
+
+    Express Aplication Generator 
+        
+        - use for quickly create an application skeleton or structure.
+    
+        - folder structure 
+            - bin : contains the executable file that start your app. (contains www)
+            - public : contains folders like javascript, css, images and other assets.
+            - routes : contains route files. 
+            - views : contains files related to template engine.
+            - app.js : creates an express application object, set up the application
+                     with various settings and middlewares, and then exports the app from the module.
+
+
+    Install
+
+        - npx express-generator --view=ejs myapp
+
+
+        - npm install -g express-generator
+        - express --view=ejs myapp
+
+    - install all required dependency.
+
+        - npm install
+    
+    - to run :
+
+        SET DEBUG=project_folder_name:* & npm start

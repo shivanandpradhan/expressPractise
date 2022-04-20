@@ -1,0 +1,28 @@
+8. ch8_views  
+
+    It contains the html, served by your application.
+    It seperate application logic from your presentation logic.
+    views are stored in the views directory.
+
+    creating view
+
+        - views/index.html
+            <html>
+                <body>
+                    <h1> Home Page </h1>
+                </body>
+            </html>
+        
+    Create route for view
+
+        - app.get("/", (req, res) => {
+            res.sendFile(path.join(process.cwd(), 'views', 'index.html'))
+        });
+
+        process.cwd() : process is node's global object and .cwd() returns path where 
+                        node is running.
+        
+        sendFile() : 
+            used to tranfers file at the given path.
+            sets the Content-Type  based on filename's extension.
+  

@@ -1,0 +1,159 @@
+10. ch10_template_engine
+    
+    Template engine
+
+        Enable us to use static template files in our application.
+        At runtime, the template engine replaces variables in a template file with acutal values, 
+        and transforms the template into an html fiel sent to the client.
+
+        eg: ejs, pug, mustachce, nunjucks, dust..
+    
+    setup template engine
+
+        INSTALL 
+            npm install ejs
+        
+        app.js
+        set up directory where template files are located.
+            app.set('views', './views')  - BY DEFAULT.. path "./views"
+        
+        set up the template engine to use.
+            app.set('view engine', 'ejs')
+
+        if view engine property is not set, you must specify the extension of the view file.
+
+            res.render("index.ejs")
+
+        views/
+            index.ejs
+            about.ejs
+            student.ejs
+        
+        creating routes for template files.
+        app.get('/', (req, res) => {
+            res.render('index')
+        })
+
+        render() :
+
+            - renders a view and send the rendered html string to the client.
+
+            syntax :
+                res.render(view, locals, callback)
+
+                view :
+                    it is a string that is the file path to template files.
+                locals:
+                    it is an object whose properties define local variables for the view.
+                callback() :
+                    if provided, it returns both the error and rendered string. but doesnot perform an automated response.
+                    when an error occurs, the method invokes next(err) internally.
+                
+            
+            - send rendered view to the client
+                res.render("index")
+            
+            - pass a local variable to the view
+                res.render("index", {name: "sonam"})
+            
+            - rendered html string has to be sent explicitly
+                res.render('index', function(err, html) {
+                    res.send(html)
+                })
+
+            - res.render('index',{name : 'shiva'}, (err, html) => {
+                ....
+            })
+
+11. ejs_template_engine
+
+    stands for embedded javascript.
+
+    a simple templating language the lets you generate html with plain js.
+
+    fast compilation and rendering.
+    simple template tags : <% %>
+    sub templates includes
+    both server js and browser support
+
+    displaying data :
+
+        data passed to your views can be displayed by wrapping var in <%= %>
+
+            <%= name %>
+        
+    comment :
+
+        ejs comments are not included in the html returned by your application.
+
+            <%# comment %>
+    
+    simple js code 
+
+        variable declaration 
+
+            <% var i = 10; %>
+    
+    if condition
+
+        <% if (cond) { %> 
+            ...
+        <%}%>
+    
+    if - else 
+        <% if (cond) { %> 
+            ...
+        <%} else {%>
+            ...
+        <% } %> 
+
+    if - else if - else
+        <% if (cond) { %> 
+            ...
+        <%} else if {%>
+            ...
+        <% } else { %> 
+            ...
+        <% } %> 
+
+    
+    loops 
+
+        for
+
+            <% for(initial; condition; incr/decr) { %> 
+                ...
+            <% } %>
+        
+        for in loop
+
+            <% for(const key in data) { %> 
+                ...
+            <% } %>
+        
+        while
+
+            <% while (condition) { %>
+                ...
+            <% } %>
+
+        forEach
+
+            <%data.forEach((item) => { %>
+                ...
+            <% }) %>
+        
+    include 
+
+        include are relative to the template.
+
+        syntax :
+
+            <%- include(filename, object) %>
+            <%- include(folder/filename, object)
+        
+        example :
+
+            <%- include('header', {'name': 'homepage'}) %>
+            <%- include('./partials/header', {name : 'homepage'}) %>
+    

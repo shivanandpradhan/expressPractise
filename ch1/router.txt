@@ -1,0 +1,91 @@
+6. ch6_router_route_parameters
+    
+    Router 
+
+        It is used to create modulear, mountable route handlers.
+        A Router instance is a complete middleware and routing system.
+        
+    steps:
+
+        create router Module :
+            routes/student.js
+        
+        create router instance 
+            const router = express.Router()
+        
+        define routes using router object.
+            router.get("/", (req, res) => {
+                res.send("home Page");
+            })
+        
+        export router
+            export default router;
+            or 
+            module.exports = router;
+        
+        open app.js
+
+        import router module
+            import router from "routes/router.js"
+            or 
+            const router = require("./routes/student.js");
+        
+        load router module.
+            app.use(router)
+                move to the router and execute on the basis of valid path.
+
+            app.use('url', router)
+                new path will be "url/..." 
+                ... denotes routes defined in router.
+    
+    improved_router
+        improved version of previous ch6_router'
+
+    route parameters
+        these are named url segments that are used to capture the values specified
+        at their position in the URL.
+        
+        these values are populated in the req.params object, with the name 
+        of the route parameter specified in the path.
+
+            eg. 
+                /student/:id 
+                /student/:category/:id
+                /product/order/:year/and/:month
+                /train/:from-:to
+            
+        route parameter with regex
+            we can append a regular expression in parenthesis (())
+                /student/:id([0-9]{2}) // www.examle.com/student/12  i.e only 2 digit number.
+                /student/:name([a-z]) // www.example.com/student/anamika
+            - choices.. 
+                /:type(post|article)/:id   //  /post/12   /article/22
+        
+        route parameter 
+
+            app.param() :- 
+
+                - This function is used to add the callback triggers to route parameters. 
+                  It is commonly used to check for the existence of the data requested 
+                    related to the route parameter.
+                
+                - all param callbacks will be called before any handler of any route
+                     in which the param occurs.
+                    
+                - syntax :
+                    app.param(name, callback)
+                    app.param([name1, name2, name3, ....], callback)
+
+                    if name is an array, then callback trigger is registered for each parameters in the order,  
+                    that they are declared.
+
+                - example :
+                    app.param("id", (req, res, next, id) => {
+                        console.log(`id : ${id}`);
+                    })
+        
+    query string
+        /student?id=12&name=shiva&age=12
+
+        to get query
+            req.query

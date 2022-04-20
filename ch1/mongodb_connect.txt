@@ -1,0 +1,143 @@
+13.ch12_mongoose_connect
+
+    mongoose provides a straight forward, schema based solution to model your application data.
+
+    helps in modeling db using mongodb.
+
+    It includes built-in type casting, validation, query building, business-logics and more..
+
+    Installation :
+
+        - npm i mongoose
+    
+    connect() :
+
+        helps in establishing a connection to the mongodb database.
+
+        returns a promise.
+    
+        syntax :
+
+            mongoose.connect(uri, options, callback)
+
+            uri :- it is a string used as connection uri.
+            options : It is an object passed down to the mongodb driver's connect().
+            callback : function
+        
+        Example :
+
+            - mongoose.connect("mongodb://localhost:27017/schooldb")
+            - mongoose.connect("mongodb://localhost:27017/schooldb", {
+                useNewUrlParser : true,
+                useUnifiedTopology : true
+            })
+
+        options also includes:
+
+            user : string
+            pass : string
+            dbName : string
+            authSource : string
+            autoIndex : boolean
+            
+        Example :
+
+            const options = {
+                useNewUrlParser : true,
+                useUnifiedTopology : true,
+                user : "shiva",
+                pass : "123456",
+                dbName : "schooldb",
+                authSource : "schooldb"
+            }
+            mongoose.connect("mongodb://localhost:27017", options)
+        
+    connect returns a promise..
+        
+            in db/connectdb.js
+
+                - const connectDB =  mongoose.connect("mongodb://localhost:27017//schooldb")
+                .then( () => {
+                    console.log("connected successfully")
+                }).catch(err) => {
+                    console.log(err)
+                })
+
+            in app.js
+
+                import connectDB from './db/connectdb.js'
+                connectDB()
+
+        --- more nicer way to write..
+
+            in app.js
+
+                const DATABASE_URL = 'mongodb://localhost:27017'
+
+                connectDB(DATABASE_URL)
+
+                // if DATABASE_URL defined in process.env then we can also write.
+                // const DATABASE_URL = process.env.DATABASE_URL || 'mongodb://localhost:27017/schooldb'
+
+            
+            in db/connectdb.js
+
+                const connectDB = (DATABASE_URL) => {
+
+                    return mongoose.connect(DATABASE_URL)
+                    .then(() => {
+                        console.log("connected successfully")
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+
+                }
+
+        way of defining DATABASE_URL if user is created.
+
+            in mongodb : mongosh
+
+                schooldb > db.createUser({
+                                user : "shiva", 
+                                pwd : "123456", 
+                                roles : [{role : "read", db : "schooldb"}]
+                            })
+            in app.js
+
+                    const DATABASE_URL = process.env.DATABASE_URL || 
+                            'mongodb://shiva:123456@localhost:27017/schooldb?authSource=schooldb'
+                    connectDB(DATABASE_URL)
+
+                here shiva :--> username
+                    123456 :--> password of user.
+            
+        another way of handling this using options.
+
+            in app.js 
+
+                - const DATABASE_URL = process.env.DATABASE_URL || 'mongodb://localhost:27017'
+                - connectDB(DATABASE_URL)
+            
+            in db/connectdb.js
+
+                // here instead of promise we are using async await.. 
+
+                - const connectDB = async (DATABASE_URL) => {
+
+                    try{
+                        const DB_options = {
+                            user : "shiva",
+                            pass : "123456",
+                            dbName : "schooldb",
+                            authSource : "schooldb"
+                        }
+
+                        await mongoose.connect(DATABASE_URL, DB_options);
+                        console.log("connected successfully");
+                    }
+                    catch(err) {
+                        console.log(err)
+                    }
+
+                }
